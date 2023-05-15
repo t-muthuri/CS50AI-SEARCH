@@ -11,6 +11,7 @@ class StackFrontier():
 
     """
     Stack = last-in first-out
+    This class implements the idea of a frontier
     """
     
     def __init__(self):
@@ -50,3 +51,25 @@ class StackFrontier():
             node = self.frontier[-1]
             self.frontier = self.frontier[:-1]
             return node
+        
+    """
+    check if the frontier is empty and raise an exception error
+    else remove the last-in node and create a new list
+    then expand on the node removed
+    """
+
+    class QueueFrontier(StackFrontier):
+
+        """
+        Inherits functions from the StackFrontier
+        except from how it removes the nodes
+        Queue = first-in first-out
+        """
+
+        def remove(self):
+            if self.empty():
+                raise Exception("empty frontier")
+            else:
+                node = self.frontier[0]
+                self.frontier = self.frontier[1:]
+                return node
