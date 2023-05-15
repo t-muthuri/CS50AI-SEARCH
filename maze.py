@@ -73,3 +73,10 @@ class StackFrontier():
                 node = self.frontier[0]
                 self.frontier = self.frontier[1:]
                 return node
+            
+class Maze():
+    def __init__(self, filename):
+        
+        #Read file and set height and width of the maze
+        with open(filename) as f:
+            contents = f.read()
