@@ -11,7 +11,7 @@ class StackFrontier():
 
     """
     Stack = last-in first-out
-    This class implements the idea of a frontier
+    This class implements the idea of a frontier.
     """
     
     def __init__(self):
@@ -19,21 +19,21 @@ class StackFrontier():
 
     """
     A function that initially creates a frontier
-    that will be initially represented using an empty list
+    that will be initially represented using an empty list.
     """
 
     def add(self, node):
         self.frontier.append(node)
 
     """
-    Adds a node to the empty frontier
+    Adds a node to the empty frontier.
     """
 
     def contains_state(self, state):
         return any(node.state == state for node in self.frontier)
     
     """
-    A function that checks if the frontier contains a node
+    A function that checks if the frontier contains a node.
     """
 
     def empty(self):
@@ -41,7 +41,7 @@ class StackFrontier():
     
     """
     Checks if the frontier is empty.
-    Which means the length of the frontier list is 0
+    Which means the length of the frontier list is 0.
     """
 
     def remove(self):
@@ -53,30 +53,41 @@ class StackFrontier():
             return node
         
     """
-    check if the frontier is empty and raise an exception error
+    Check if the frontier is empty and raise an exception error
     else remove the last-in node and create a new list
-    then expand on the node removed
+    then expand on the node removed.
     """
 
-    class QueueFrontier(StackFrontier):
+class QueueFrontier(StackFrontier):
 
-        """
-        Inherits functions from the StackFrontier
-        except from how it removes the nodes
-        Queue = first-in first-out
-        """
+    """
+    Inherits functions from the StackFrontier
+    except from how it removes the nodes.
+    Queue = first-in first-out.
+    """
 
-        def remove(self):
-            if self.empty():
-                raise Exception("empty frontier")
-            else:
-                node = self.frontier[0]
-                self.frontier = self.frontier[1:]
-                return node
+    def remove(self):
+        if self.empty():
+            raise Exception("empty frontier")
+        else:
+            node = self.frontier[0]
+            self.frontier = self.frontier[1:]
+            return node
             
 class Maze():
     def __init__(self, filename):
         
         #Read file and set height and width of the maze
         with open(filename) as f:
-            contents = f.read()
+            contents = f.read() #read the contents of the file
+
+        #Validate start and goal
+        if contents.count("A") != 1:
+            raise Exception("maze must have exactly one start point")
+        if contents.count("B") != 1:
+            raise Exception("maze must have exactly one goal")
+        
+        #Determine height and width of maze
+        contents = contents.splitlines()
+        self.height = len(contents)
+        self.width = max(len(line) for line in contents)
